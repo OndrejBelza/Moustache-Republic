@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { CartItem, DefaultLayoutContainer } from "./layout/default";
+import { DetailContainer, Product, SizeOption } from "./pages/detail";
 
 function App() {
+  const [cart, setCart] = useState<CartItem[]>([]);
+
+  const addProductToCart = (
+    { id, price, title, imageURL }: Product,
+    selectedSize: SizeOption
+  ) => {
+    const productInCartIndex = cart.findIndex(
+      (cartItem) => cartItem.id === id && cartItem.size.id === selectedSize.id
+    );
+
+    if (productInCartIndex !== -1) {
+      setCart(
+        cart.map((item, index) =>
+          index !== productInCartIndex
+            ? item
+            : { ...item, quantity: item.quantity + 1 }
+        )
+      );
+    } else {
+      setCart([
+        ...cart,
+        {
+          id,
+          price,
+          title,
+          size: { id: selectedSize.id, label: selectedSize.label },
+          quantity: 1,
+          imageURL,
+        },
+      ]);
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DefaultLayoutContainer cart={cart}>
+      <DetailContainer addProductToCart={addProductToCart} />
+    </DefaultLayoutContainer>
   );
 }
 

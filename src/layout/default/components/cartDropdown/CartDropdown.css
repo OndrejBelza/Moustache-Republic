@@ -1,0 +1,21 @@
+#cart-dropdown {
+  border: 1px solid var(--border);
+  position: absolute;
+  width: 300px;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+}
+
+.dropdown-cart-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.dropdown-cart-item:last-child {
+  margin-bottom: 0;
+}
+
+.dropdown-cart-item-image {
+  width: 40%;
+}
