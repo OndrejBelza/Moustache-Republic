@@ -15,6 +15,10 @@
   color: var(--text-grey);
 }
 
+.text-required {
+  color: var(--required);
+}
+
 .font-bold {
   font-weight: bold;
 }

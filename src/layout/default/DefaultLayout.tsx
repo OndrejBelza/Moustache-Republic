@@ -19,16 +19,24 @@ export const DefaultLayout: FC<DefaultLayoutProps> = ({
   return (
     <>
       <header>
-        <div id="cart-wrapper">
-          <button
-            className={`mini-cart-button text-light  ${
-              isCartOpen ? "mini-cart-button-active" : ""
-            }`}
-            onClick={onCartClick}
-          >
-            My Cart ( {cart.reduce((prev, cur) => prev + cur.quantity, 0)} )
-          </button>
-          {isCartOpen && <CartDropDown items={cart} />}
+        <div id="header-wrapper">
+          <div id="cart-wrapper">
+            <button
+              className={`mini-cart-button text-light  ${
+                isCartOpen ? "mini-cart-button-active" : ""
+              }`}
+              onClick={onCartClick}
+            >
+              <img
+                src="./cart.svg"
+                alt="shopping cart toggle"
+                id="shopping-cart-toggle"
+              />
+              <span id="my-cart-text">My Cart </span>({" "}
+              {cart.reduce((prev, cur) => prev + cur.quantity, 0)} )
+            </button>
+            {isCartOpen && <CartDropDown items={cart} />}
+          </div>
         </div>
       </header>
       <div id="content">{children}</div>
